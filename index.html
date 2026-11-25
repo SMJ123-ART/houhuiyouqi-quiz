@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FCF7EF">
+<title>测一测｜你曾经历过《后会友期》里的哪一段矛盾</title>
+<style>
+/* ================= 配置区：配色与全局 ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FCF7EF;      /* 奶油白 */
+  --mist:#9FBBC9;       /* 雾蓝 */
+  --mist2:#6E8FA1;
+  --mist-soft:#E7EFF3;
+  --sunset:#F09A5A;     /* 落日橘 */
+  --sunset2:#E67E44;
+  --sunset-soft:#FBEAD7;
+  --slate:#5B6B75;      /* 青灰 */
+  --ink:#33414B;
+  --line:#E6EDF1;
+  --r-lg:28px;--r-md:18px;
+  --shadow:0 12px 40px rgba(91,107,117,.14);
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
+  color:var(--ink);line-height:1.75;min-height:100vh;
+  background:linear-gradient(168deg,#FCF7EF 0%,#EAF2F6 46%,#F9E9D6 100%) fixed;
+  overflow-x:hidden;
+}
+/* —— 背景装饰：车窗光 + 噪点 + 远山 —— */
+.bg-light{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(620px 320px at 88% -6%, rgba(246,192,137,.38), transparent 70%),
+    linear-gradient(115deg, transparent 40%, rgba(255,255,255,.34) 41%, rgba(255,255,255,.10) 44%, transparent 46%);}
+.bg-noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+.bg-hill{position:fixed;left:-10%;right:-10%;bottom:-120px;height:260px;pointer-events:none;z-index:0;
+  background:radial-gradient(60% 100% at 30% 100%, rgba(159,187,201,.30), transparent 70%),
+             radial-gradient(50% 90% at 78% 100%, rgba(159,187,201,.22), transparent 70%);}
+
+/* ================= 动效增强：流光 / 飘云 / 星点 ================= */
+.bg-blob{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(64px);opacity:.55;animation:blobFloat 16s ease-in-out infinite alternate}
+.blob.b1{width:340px;height:340px;background:radial-gradient(circle,#F6C089,transparent 62%);top:-90px;left:-130px}
+.blob.b2{width:300px;height:300px;background:radial-gradient(circle,#AFCCDC,transparent 62%);bottom:-70px;right:-110px;animation-duration:21s;animation-delay:-7s}
+.blob.b3{width:230px;height:230px;background:radial-gradient(circle,#F3C9B4,transparent 62%);top:38%;left:58%;animation-duration:25s;animation-delay:-13s}
+@keyframes blobFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,46px) scale(1.18)}}
+
+.bg-clouds{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cloud{position:absolute;opacity:.8;animation:cloudDrift linear infinite}
+.cloud.c1{top:9%;animation-duration:46s}
+.cloud.c2{top:26%;animation-duration:64s;animation-delay:-30s;transform:scale(.7)}
+.cloud.c3{top:58%;animation-duration:80s;animation-delay:-55s;transform:scale(.55);opacity:.55}
+@keyframes cloudDrift{from{left:-160px}to{left:110%}}
+.cloud svg{display:block}
+
+.bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.spark{position:absolute;bottom:-24px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff,rgba(240,154,90,.9));
+  box-shadow:0 0 8px rgba(240,154,90,.5);animation:sparkUp linear infinite}
+.spark.blue{background:radial-gradient(circle at 35% 35%,#fff,rgba(159,187,201,.9));
+  box-shadow:0 0 8px rgba(159,187,201,.5)}
+@keyframes sparkUp{0%{transform:translateY(0) scale(.6);opacity:0}
+  12%{opacity:.9}85%{opacity:.5}100%{transform:translateY(-108vh) scale(1.1);opacity:0}}
+
+/* 启动页插画：公路流动 + 太阳呼吸 */
+.road{animation:roadDash 2.4s linear infinite}
+.road2{animation-duration:3.4s;animation-delay:-1.2s}
+@keyframes roadDash{to{stroke-dashoffset:-30}}
+.sun{transform-origin:center;animation:sunPulse 4.5s ease-in-out infinite}
+@keyframes sunPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.12);opacity:.85}}
+.sun-halo{transform-origin:center;animation:haloSpin 14s linear infinite}
+@keyframes haloSpin{to{transform:rotate(360deg)}}
+
+/* 进度条流光 */
+.bar i{background:linear-gradient(90deg,var(--mist),var(--sunset),var(--mist));background-size:200% 100%;animation:barShine 2.6s linear infinite}
+@keyframes barShine{to{background-position:-200% 0}}
+
+/* 结果页 hero：漂浮小气泡 + 金句入场 */
+.hero::before{content:"";position:absolute;top:16px;left:18px;width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.9),transparent 70%);animation:floatY 5s ease-in-out infinite}
+.hero::after{content:"";position:absolute;bottom:18px;right:24px;width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,154,90,.5),transparent 70%);animation:floatY 6.5s ease-in-out infinite reverse}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero.anim .r-quote{animation:quoteIn .55s .15s cubic-bezier(.34,1.5,.64,1) both}
+@keyframes quoteIn{from{opacity:0;transform:translateY(10px) scale(.92)}to{opacity:1;transform:none}}
+
+/* 选项悬浮微抬 */
+.opt:hover{transform:translateY(-2px)}
+
+/* 细腻文案：保留换行的短句排版 */
+.block p{white-space:pre-line;text-align:left;line-height:1.95}
+
+/* 启动按钮招手 */
+#btn-start{animation:startWave 2.8s ease-in-out infinite}
+@keyframes startWave{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+#btn-start:not(:disabled):hover{animation:none;transform:translateY(-2px)}
+
+/* ================= 布局 ================= */
+#app{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:28px 18px 84px}
+.screen{display:none}
+.screen.on{display:block;animation:fadeUp .45s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.card{background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);padding:30px 24px;backdrop-filter:blur(4px)}
+
+/* —— 免责声明（固定页脚）—— */
+.disclaimer{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:6;
+  font-size:11.5px;color:var(--mist2);white-space:nowrap;
+  background:rgba(252,247,239,.82);backdrop-filter:blur(6px);
+  padding:4px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.7)}
+
+/* ================= 启动页 ================= */
+.kicker{display:inline-block;font-size:12px;letter-spacing:.35em;color:var(--mist2);
+  border:1px solid var(--mist);border-radius:999px;padding:3px 14px 3px 16px;margin-bottom:18px}
+.start-card h1{font-size:clamp(1.4rem,5.4vw,1.95rem);line-height:1.45;letter-spacing:.02em}
+.lead{margin-top:14px;color:var(--slate);font-size:15.5px}
+.underline{display:block;margin:14px auto 0;width:min(260px,70%)}
+.lead2{margin-top:4px;color:var(--slate);font-size:13.5px}
+.tiny{margin-top:16px;font-size:12px;color:var(--mist2);text-align:center}
+.start-illu{display:block;width:min(330px,86%);margin:0 auto 6px}
+
+.last-result{margin-top:14px;background:var(--mist-soft);border-radius:var(--r-md);
+  padding:10px 16px;font-size:13px;color:var(--slate);display:flex;align-items:center;justify-content:center;gap:6px}
+.last-result b{color:var(--sunset2)}
+.last-result button{background:none;border:none;color:var(--mist2);cursor:pointer;
+  font-size:13px;text-decoration:underline;min-height:44px}
+
+/* ================= 按钮 ================= */
+.btn-main,.btn-ghost{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;padding:12px 30px;border-radius:999px;font-size:16.5px;
+  cursor:pointer;border:none;transition:transform .15s ease,box-shadow .2s ease,opacity .2s;
+  font-family:inherit;letter-spacing:.04em}
+.btn-main{color:#fff;background:linear-gradient(135deg,var(--sunset),var(--sunset2));
+  box-shadow:0 10px 24px rgba(230,126,68,.32)}
+.btn-main:disabled{opacity:.38;box-shadow:none;cursor:not-allowed}
+.btn-main:not(:disabled):hover{transform:translateY(-2px)}
+.btn-main:not(:disabled):active{transform:scale(.96)}
+.btn-ghost{color:var(--slate);background:#fff;border:2px solid var(--mist)}
+.btn-ghost:active{transform:scale(.96)}
+.btn-ghost:disabled{opacity:.35;cursor:not-allowed}
+button:focus-visible{outline:3px solid rgba(240,154,90,.55);outline-offset:2px}
+#btn-start{margin-top:22px;width:100%}
+.btn-main.ready{animation:readyPulse 1.6s ease infinite}
+@keyframes readyPulse{0%,100%{box-shadow:0 10px 24px rgba(230,126,68,.32)}
+  50%{box-shadow:0 10px 30px rgba(230,126,68,.55)}}
+
+/* ================= 答题页 ================= */
+.quiz-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.bar{flex:1;height:8px;border-radius:999px;background:#E3EBEF;overflow:hidden}
+.bar i{display:block;height:100%;width:2.5%;border-radius:999px;
+  background:linear-gradient(90deg,var(--mist),var(--sunset));transition:width .35s ease}
+.count{font-size:14px;color:var(--slate);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.qcard{background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);padding:26px 22px}
+.qcard.anim-next{animation:slideR .38s ease both}
+.qcard.anim-prev{animation:slideL .38s ease both}
+@keyframes slideR{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
+@keyframes slideL{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:none}}
+
+.q-text{font-size:clamp(1.05rem,4.3vw,1.3rem);line-height:1.6;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:12px}
+
+.opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;
+  width:100%;min-height:56px;padding:13px 16px;text-align:left;cursor:pointer;
+  background:#fff;border:2px solid var(--line);border-radius:var(--r-md);
+  font-size:15.5px;line-height:1.55;color:var(--ink);font-family:inherit;
+  transition:border-color .18s ease,background .18s ease,transform .12s ease}
+.opt:hover{border-color:var(--mist)}
+.opt:active{transform:scale(.98)}
+.opt-letter{flex:none;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--mist2);border:1.5px solid var(--line);
+  background:var(--mist-soft);transition:all .18s ease}
+.opt-text{flex:1}
+.opt-tick{flex:none;width:26px;height:26px;border-radius:50%;color:#fff;
+  background:linear-gradient(135deg,var(--sunset),var(--sunset2));
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.opt.sel{border-color:var(--sunset);background:linear-gradient(90deg,#FDF3E8,#FFF9F1)}
+.opt.sel .opt-letter{background:linear-gradient(135deg,var(--sunset),var(--sunset2));
+  color:#fff;border-color:transparent}
+.opt.sel .opt-tick{transform:scale(1)}
+.ripple{position:absolute;border-radius:50%;width:24px;height:24px;pointer-events:none;
+  background:rgba(240,154,90,.35);transform:scale(1);opacity:.9;
+  animation:rippleAnim .55s ease-out forwards}
+@keyframes rippleAnim{to{transform:scale(14);opacity:0}}
+.q-hint{margin-top:14px;text-align:center;font-size:12px;color:var(--mist2)}
+
+.quiz-nav{display:flex;gap:14px;margin-top:20px}
+.quiz-nav .btn-ghost{flex:1}
+.quiz-nav .btn-main{flex:1.6}
+
+/* ================= 结果页 ================= */
+.hero{position:relative;overflow:hidden;border-radius:var(--r-lg);
+  --h-ink:#33414B;--h-sub:#E67E44;--h-side:#5B6B75;--h-chip:#fff;
+  background:linear-gradient(150deg,#FFFDF9 0%,var(--sunset-soft) 60%,#F7DFC8 100%);
+  border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);
+  padding:34px 26px 30px;text-align:center}
+/* —— 8 个结果各一套意境主题 —— */
+.hero.t-A1{background:linear-gradient(160deg,#2E3B52 0%,#4A5B78 55%,#7A6A86 100%);
+  --h-ink:#F7F3EC;--h-sub:#F6C089;--h-side:#C8D0DE;--h-chip:rgba(255,255,255,.14)}   /* 深夜对话框 */
+.hero.t-A2{background:linear-gradient(160deg,#EEF1F0 0%,#E9E1D6 55%,#F3DCC2 100%);
+  --h-sub:#C96A2B}                                                              /* 旧窗光影 */
+.hero.t-B1{background:linear-gradient(135deg,#FFF9F1 0%,#FFF1E2 50%,#FFE3CC 100%)} /* 饭桌暖灯 */
+.hero.t-B2{background:linear-gradient(180deg,#FFD3A6 0%,#FFB08C 45%,#F59AA0 75%,#C9A7D8 100%);
+  --h-ink:#4A2F2A;--h-sub:#7A3B2E;--h-side:#6B4A44}                              /* 温柔晚风落日 */
+.hero.t-C1{background:linear-gradient(160deg,#FFFBEA 0%,#FFF3D0 55%,#F8E6BC 100%);
+  --h-sub:#B5651D}                                                              /* 清晨账本 */
+.hero.t-C2{background:linear-gradient(160deg,#F3F8FB 0%,#DCEAF1 55%,#C9DCE7 100%);
+  --h-sub:#B85C2A}                                                              /* 雨后清透 */
+.hero.t-D1{background:linear-gradient(160deg,#F2F8FC 0%,#D9EAF5 55%,#C3DBEA 100%);
+  --h-sub:#C9612A}                                                              /* 同频声波 */
+.hero.t-D2{background:linear-gradient(180deg,#FBD8AE 0%,#F7AE86 55%,#C99AA6 100%);
+  --h-ink:#4A2F2A;--h-sub:#7A3B2E;--h-side:#6B4A44}                              /* 黄昏站台 */
+.hero-art{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-art svg{width:100%;height:100%;display:block}
+.hero>:not(.hero-art){position:relative;z-index:1}
+.art-drift{animation:artDrift 7s ease-in-out infinite alternate}
+@keyframes artDrift{from{transform:translateX(-8px)}to{transform:translateX(10px)}}
+.art-blink{animation:artBlink 1.3s steps(1) infinite}
+@keyframes artBlink{0%,60%{opacity:1}61%,100%{opacity:.12}}
+.art-wave{stroke-dasharray:6 10;animation:dashFlow 1.8s linear infinite}
+@keyframes dashFlow{to{stroke-dashoffset:-32}}
+.art-spin{transform-box:fill-box;transform-origin:center;animation:haloSpin 22s linear infinite}
+.art-glow{transform-box:fill-box;transform-origin:center;animation:sunPulse 5s ease-in-out infinite}
+.art-float{transform-box:fill-box;transform-origin:center;animation:floatY 6s ease-in-out infinite}
+/* 整页光晕随主题变色 */
+.blob.b1{background:radial-gradient(circle,var(--blob1,#F6C089),transparent 62%)}
+.blob.b2{background:radial-gradient(circle,var(--blob2,#AFCCDC),transparent 62%)}
+.blob.b3{background:radial-gradient(circle,var(--blob3,#F3C9B4),transparent 62%)}
+body.t-A1{--blob1:#6E7FA3;--blob2:#3F4F6B;--blob3:#C98B5E;background-image:linear-gradient(168deg,#E6EBF3 0%,#D3DCE9 46%,#E6D6D0 100%)}
+body.t-A2{--blob1:#E8C9A8;--blob2:#A9BFCB;--blob3:#D8C8B8}
+body.t-B1{--blob1:#FBD9B5;--blob2:#F3E3D3;--blob3:#E9C8B8}
+body.t-B2{--blob1:#FFB98A;--blob2:#F59AA0;--blob3:#C9A7D8;background-image:linear-gradient(168deg,#FFF3E6 0%,#FFE4D6 46%,#F7D9E3 100%)}
+body.t-C1{--blob1:#FFE9A8;--blob2:#D7E6D0;--blob3:#F6D9A8}
+body.t-C2{--blob1:#CFE0EA;--blob2:#E8F1F5;--blob3:#BFD3DE}
+body.t-D1{--blob1:#B5D4EA;--blob2:#DCEBF5;--blob3:#A8C9E3}
+body.t-D2{--blob1:#FFC38B;--blob2:#F79D8E;--blob3:#9FB6C9;background-image:linear-gradient(168deg,#FFF0E0 0%,#FDE0D2 46%,#EFD5DC 100%)}
+
+/* —— 全屏场景层 + 玻璃卡片（让场景透出来）—— */
+#scene{position:fixed;inset:0;z-index:0;pointer-events:none}
+#scene svg{width:100%;height:100%;display:block}
+.art-wave-rev{stroke-dasharray:18 26;animation:dashFlowRev 1.2s linear infinite}
+@keyframes dashFlowRev{to{stroke-dashoffset:44}}
+body[class*="t-"] .bg-hill{display:none}
+body.t-A1 .cloud,body.t-C2 .cloud{display:none}
+.card,.qcard{background:rgba(255,255,255,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.hero[class*=" t-"]{background:var(--h-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.hero.t-A1{--h-bg:rgba(38,50,72,.40)}.hero.t-A2{--h-bg:rgba(255,255,255,.26)}
+.hero.t-B1{--h-bg:rgba(255,255,255,.20)}.hero.t-B2{--h-bg:rgba(255,255,255,.14)}
+.hero.t-C1{--h-bg:rgba(255,255,255,.22)}.hero.t-C2{--h-bg:rgba(255,255,255,.26)}
+.hero.t-D1{--h-bg:rgba(255,255,255,.24)}.hero.t-D2{--h-bg:rgba(255,255,255,.16)}
+body[class*="t-"] .block{background:rgba(255,255,255,.74);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body[class*="t-"] .block.persona{background:linear-gradient(160deg,rgba(255,255,255,.72),rgba(251,234,215,.58))}
+body[class*="t-"] .block.egg{background:linear-gradient(160deg,rgba(255,255,255,.72),rgba(231,239,243,.58))}
+body.t-A1 .block{background:rgba(255,255,255,.92)}
+body.t-A1 .block.persona{background:linear-gradient(160deg,rgba(255,255,255,.94),rgba(251,234,215,.86))}
+body.t-A1 .block.egg{background:linear-gradient(160deg,rgba(255,255,255,.94),rgba(231,239,243,.86))}
+.hero::after{content:"";position:absolute;top:-70px;right:-70px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.65),transparent 70%)}
+.hero.anim{animation:popIn .5s cubic-bezier(.34,1.4,.64,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.chip-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{font-size:12.5px;letter-spacing:.12em;padding:4px 14px;border-radius:999px}
+.chip-line{color:#fff;background:linear-gradient(135deg,var(--mist),var(--mist2))}
+.chip-stance{color:var(--h-sub);background:var(--h-chip);border:1.5px solid var(--sunset)}
+.r-title{margin:16px 0 10px;font-size:clamp(1.45rem,5.8vw,2rem);letter-spacing:.02em;color:var(--h-ink)}
+.r-quote{font-size:clamp(1.05rem,4.5vw,1.25rem);font-weight:700;color:var(--h-ink);
+  letter-spacing:.05em;margin-bottom:8px}
+.r-slogan{font-size:15.5px;color:var(--h-sub);font-weight:600}
+.r-side{margin-top:12px;font-size:14px;color:var(--h-side)}
+.r-side b{color:var(--h-sub)}
+
+.block{background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px 22px;margin-top:16px}
+.block.rise{animation:riseIn .5s ease both}
+@keyframes riseIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.block h3{font-size:15px;color:var(--mist2);letter-spacing:.22em;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px}
+.block h3::before{content:"";width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sunset),var(--sunset2))}
+.block p{font-size:15.5px;color:var(--ink);text-align:justify}
+.block.egg{background:linear-gradient(160deg,rgba(255,255,255,.88),var(--mist-soft))}
+.block.persona{background:linear-gradient(160deg,rgba(255,255,255,.9),var(--sunset-soft))}
+
+.r-actions{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
+.r-actions .btn-main{flex:1.5;min-width:180px}
+.r-actions .btn-ghost{flex:1;min-width:130px}
+
+/* ================= 轻提示 toast ================= */
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-80px);
+  z-index:9;background:rgba(51,65,75,.92);color:#fff;font-size:14px;
+  padding:10px 22px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.18);
+  transition:transform .35s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;max-width:92vw}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ================= 桌面端微调 ================= */
+@media (min-width:700px){
+  #app{padding-top:48px}
+  .qcard,.card{padding:34px 34px}
+  .block p,.opt{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<!-- 全屏场景层：随页面/结果切换意境（旅途 → 各结果专属场景） -->
+<div id="scene" aria-hidden="true"></div>
+
+<!-- 背景装饰层：车窗光 / 噪点 / 远山 / 流光 / 飘云 / 星点 -->
+<div class="bg-light"></div>
+<div class="bg-noise"></div>
+<div class="bg-hill"></div>
+<div class="bg-blob"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="bg-clouds">
+  <div class="cloud c1"><svg width="120" height="42" viewBox="0 0 120 42"><path d="M14 34 h92 a10 10 0 0 0 0-20 a14 14 0 0 0-26-6 a12 12 0 0 0-20 4 h-24 a10 10 0 0 0 0 22z" fill="#ffffff" opacity=".85"/></svg></div>
+  <div class="cloud c2"><svg width="120" height="42" viewBox="0 0 120 42"><path d="M14 34 h92 a10 10 0 0 0 0-20 a14 14 0 0 0-26-6 a12 12 0 0 0-20 4 h-24 a10 10 0 0 0 0 22z" fill="#ffffff" opacity=".7"/></svg></div>
+  <div class="cloud c3"><svg width="120" height="42" viewBox="0 0 120 42"><path d="M14 34 h92 a10 10 0 0 0 0-20 a14 14 0 0 0-26-6 a12 12 0 0 0-20 4 h-24 a10 10 0 0 0 0 22z" fill="#ffffff" opacity=".6"/></svg></div>
+</div>
+<div class="bg-fx" id="bg-fx"></div>
+
+<div id="app">
+
+  <!-- ============ 启动页 ============ -->
+  <section id="screen-start" class="screen">
+    <div class="card start-card">
+      <!-- 车窗小插画（纯内联 SVG） -->
+      <svg class="start-illu" viewBox="0 0 330 170" aria-hidden="true">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FBEAD7"/><stop offset="1" stop-color="#E7EFF3"/>
+          </linearGradient>
+        </defs>
+        <rect x="8" y="8" width="314" height="150" rx="30" fill="url(#sky)" stroke="#ffffff" stroke-width="5"/>
+        <circle class="sun" cx="262" cy="52" r="17" fill="#F6C089"/>
+        <circle class="sun-halo" cx="262" cy="52" r="26" fill="none" stroke="#F6C089" stroke-width="1.5" opacity=".55" stroke-dasharray="4 6"/>
+        <path d="M20 128 L92 66 L142 118 L184 84 L250 128 Z" fill="#9FBBC9" opacity=".85"/>
+        <path d="M110 130 L170 96 L226 130 Z" fill="#6E8FA1" opacity=".5"/>
+        <rect x="52" y="104" width="26" height="18" rx="3" fill="#F09A5A" opacity=".9"/>
+        <path d="M48 106 L65 92 L82 106 Z" fill="#E67E44"/>
+        <rect x="60" y="110" width="9" height="12" rx="2" fill="#FCF7EF"/>
+        <path class="road" d="M14 140 H316" stroke="#ffffff" stroke-width="3" stroke-dasharray="1 14" stroke-linecap="round"/>
+        <path class="road road2" d="M14 152 H316" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="1 12" stroke-linecap="round" opacity=".6"/>
+      </svg>
+      <p class="kicker">趣味心理测试</p>
+      <h1>测一测｜你曾经历过<br>《后会友期》里的哪一段矛盾</h1>
+      <!-- 手绘感虚线 -->
+      <svg class="underline" viewBox="0 0 260 14" aria-hidden="true">
+        <path d="M4 8 C 60 2, 120 13, 256 6" fill="none" stroke="#F09A5A" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 9"/>
+      </svg>
+      <p class="lead" style="text-align:center;margin-top:18px">40 道生活题，3 分钟——<br>看看你最像哪一段散场的友情，以及你通常站在哪一边。</p>
+      <p class="lead2" style="text-align:center">不用吵架，也能看清矛盾的形状。</p>
+      <button id="btn-start" class="btn-main" type="button">开始测试</button>
+      <p class="tiny">无需看过节目 · 结果纯前端计算 · 只存在你的浏览器里</p>
+      <div id="last-result" class="last-result" hidden></div>
+    </div>
+  </section>
+
+  <!-- ============ 答题页 ============ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-top">
+      <div class="bar"><i id="bar-fill"></i></div>
+      <div class="count"><span id="q-now">1</span> / 40</div>
+    </div>
+    <div id="qcard" class="qcard">
+      <h2 class="q-text" id="q-text"></h2>
+      <div class="opts" id="opts"></div>
+      <p class="q-hint">选中即可前进 · 可随时返回修改答案</p>
+    </div>
+    <div class="quiz-nav">
+      <button id="btn-prev" class="btn-ghost" type="button" disabled>上一题</button>
+      <button id="btn-next" class="btn-main" type="button" disabled>下一题</button>
+    </div>
+  </section>
+
+  <!-- ============ 结果页 ============ -->
+  <section id="screen-result" class="screen">
+    <div id="hero" class="hero">
+      <div class="hero-art" id="hero-art" aria-hidden="true"></div>
+      <div class="chip-row"><span class="chip chip-line" id="r-line"></span><span class="chip chip-stance" id="r-stance"></span></div>
+      <h2 class="r-title" id="r-title"></h2>
+      <p class="r-quote" id="r-quote"></p>
+      <p class="r-slogan" id="r-slogan"></p>
+      <p class="r-side" id="r-side"></p>
+    </div>
+    <div class="block persona rise" style="animation-delay:.12s"><h3>典型人物 · 节目同款段</h3><p id="r-persona"></p></div>
+    <div class="block rise" style="animation-delay:.24s"><h3>你的本命矛盾段</h3><p id="r-seg"></p></div>
+    <div class="block rise" style="animation-delay:.36s"><h3>为什么是你</h3><p id="r-why"></p></div>
+    <div class="block egg rise" style="animation-delay:.48s"><h3>隐藏特质 &amp; 小彩蛋</h3><p id="r-egg"></p></div>
+    <div class="r-actions">
+      <button id="btn-copy" class="btn-main" type="button">复制文案分享</button>
+      <button id="btn-retry" class="btn-ghost" type="button">重新测试</button>
+    </div>
+  </section>
+
+</div>
+
+<div id="toast"></div>
+<p class="disclaimer">本测试只借用关系模式，不代表对任何当事人的评价。</p>
+
+<script>
+'use strict';
+/* ============================================================
+ * 配置区
+ * ========================================================== */
+var TOTAL = 40;
+var KEY = 'hyq-quiz-v1';
+
+/* ============================================================
+ * 题库：40 题（每线 10 题）
+ * 选项格式：[文本, 线(A旧账/B错位/C账目/D搭档), 分值(2主/1弱), 站位(+1先开口/-1先退场/0)]
+ * ========================================================== */
+var QUESTIONS = [
+{q:"朋友三个月没回你消息，今天突然发来一个“在吗”。",o:[
+["先不回，等他把事情说完再决定态度","A",1,0],
+["秒回“在”，顺手问他要不要一起吃饭","A",2,1],
+["心里咯噔一下：是不是又要请我帮忙","C",1,0],
+["回一个字“在”，然后盯着对话框等下半句","A",2,-1]]},
+{q:"你从共同好友那儿听到一句关于你的转述，和事实有出入。",o:[
+["就当没听见，转述总会失真","B",1,0],
+["直接找当事人确认：“你当时是这么说的吗？”","A",2,1],
+["先找传话的人核对原话和上下文","C",1,0],
+["不问，但默默给那位朋友的话打了折扣","A",2,-1]]},
+{q:"多年没联系的旧友官宣，搬到了你的城市。",o:[
+["点个赞，一句话也不说","A",2,-1],
+["私信他：“到了吱一声，请你吃饭”","A",2,1],
+["等他先联系你，你再回应","D",1,0],
+["发一条仅他可见的周末动态，轻轻钓一下","B",1,0]]},
+{q:"你翻到五年前的聊天记录，停在一句没说完的话。",o:[
+["看完就算，旧记录不值得考古","B",1,0],
+["犹豫半天，还是把那句话接着说完了","A",2,1],
+["截图发给共同好友：“你还记得这事吗？”","C",1,0],
+["退出记录，顺手清理了缓存","A",2,-1]]},
+{q:"婚礼请柬来自一个你们闹掰过、但从没吵破的人。",o:[
+["提前到、坐第一排，顺便把当年的心结当面聊开","A",2,1],
+["随份子，人不到","A",2,-1],
+["去不去，取决于敬酒时他会不会先说点什么","A",1,0],
+["先问共同好友：“他是不是群发的？”","C",1,0]]},
+{q:"旧友在群里@你“改天聚聚”，这话已经说了三年。",o:[
+["直接定时间：“就这周六，谁先到谁点菜”","A",2,1],
+["私下问他：是真想聚，还是客气一下","A",1,0],
+["假装没看到，群消息太多很正常","B",1,0],
+["回个“好啊”，然后进入第三个三年","A",2,-1]]},
+{q:"深夜刷到老同学的动态，配文很像在说你。",o:[
+["分析定位和时间线，排查到底在说谁","C",1,0],
+["评论区轻松问一句：“说我呢？”","A",2,1],
+["划走，深夜的动态一律不作数","B",1,0],
+["对号入座到失眠，第二天装作无事发生","A",2,-1]]},
+{q:"生日到了，你们的对话框停在去年那句“生日快乐”。",o:[
+["卡着零点发，显得并没有特意记着","A",1,0],
+["今年继续发，还补一句“老规矩，欠我一顿饭”","A",2,1],
+["先看看他会不会先给你发","D",1,0],
+["今年不发了，让对话框正式停在去年","A",2,-1]]},
+{q:"共同好友问你：“你们俩后来到底怎么了？”",o:[
+["把时间线捋一遍：“说来话长，得从那年讲起”","C",1,0],
+["“我也想知道”——然后真的去问了本人","A",2,1],
+["打个哈哈把话题岔开","B",1,0],
+["“没什么，就是都忙”","A",2,-1]]},
+{q:"同学聚会你提前走了，第二天有人问你是不是对谁有意见。",o:[
+["在群里发个表情包，宣布自己回家躺平了","B",1,0],
+["私信那位同学：“真不是，我就是困了，下次补上”","A",2,1],
+["反问一句：“你听谁说的？”","C",1,0],
+["不解释，问心无愧","A",2,-1]]},
+
+{q:"你给朋友带了半年早餐，今天忘了。",o:[
+["什么都不说，看他会不会提","B",2,-1],
+["主动说“今天忘了，明天补上”","B",2,1],
+["有点委屈：“他终于发现一直是我在带了”","C",1,0],
+["干脆以后都不带了，也不解释","C",1,-1]]},
+{q:"家人总把你明确说过不吃的东西，夹进你碗里。",o:[
+["拨到碗边，假装吃过了","B",1,0],
+["认真再说一遍：“我是真的不吃，不是客气”","B",2,1],
+["开始找借口，减少这类饭局","D",1,0],
+["默默吃掉，饭后自己消化情绪","B",2,-1]]},
+{q:"朋友瞒着你，安排了一场“为你好”的周末惊喜。",o:[
+["当场说：“心意收到，但下次请先问我”","B",2,1],
+["配合演出惊喜，回家瘫一小时","B",2,-1],
+["假装开心地发朋友圈，配文比心","B",1,0],
+["开始琢磨：他为什么觉得我需要这个惊喜","C",1,0]]},
+{q:"你随口吐槽了一句工作，朋友连夜发来三千字解决方案。",o:[
+["“其实我只是想吐个槽……但谢谢你”","B",2,1],
+["感动地读完并记笔记，下次真的照做","C",1,0],
+["慢慢学会，以后只发“哈哈哈”","B",1,0],
+["认真回复“收到”，内心毫无波澜","B",2,-1]]},
+{q:"同事总在会上替你“补充说明”你的方案。",o:[
+["会后私下说：“下次让我自己讲完呗”","B",2,1],
+["会后跟别人吐槽了一嘴","A",1,0],
+["当场微笑接过话头，不再纠正","B",2,-1],
+["从此开会前，先把要点全部发进群里同步","D",1,0]]},
+{q:"朋友每天准时发来“到家了吗”“吃了吗”。",o:[
+["定时定量回复“到了”“吃了”","B",2,-1],
+["认真聊一次：“我不秒回不代表没到家，是懒得拿手机”","B",2,1],
+["开启免打扰，隔天批量回复","B",1,0],
+["反向关怀加倍输出，卷到对方先停","C",1,0]]},
+{q:"旅行时你说了句“随便”，对方真就全权安排了每一天。",o:[
+["全程跟随，回程的车上长舒一口气","B",2,-1],
+["半夜认真提议：“明天留两小时，我们自己随便晃”","B",2,1],
+["在景点门口坐了一下午，没进去","B",1,0],
+["暗自决定：下次报个独行团","D",1,0]]},
+{q:"收到一份很贵重的礼物，你……",o:[
+["当场开心收下，转头开始盘算回礼预算","B",2,1],
+["收下，但坐立难安，总觉得自己欠了大人情","C",1,0],
+["婉拒：“太贵重了，心意我领了”","B",2,-1],
+["收下的同时，悄悄查了同款价格","C",1,0]]},
+{q:"朋友把你的糗事当段子，在饭桌上讲。",o:[
+["当场自黑加码，把梗抢回来","D",1,1],
+["笑着接梗，但散场后说一句：“下次别讲那个”","B",2,1],
+["记下这件事，但不放在心上","A",1,0],
+["全程假笑，回家路上复盘哪里好笑","B",2,-1]]},
+{q:"你咳嗽了两声，第二天朋友把药挂在了你家门口。",o:[
+["发消息：“药收到，但我真的只是呛到了”","B",2,1],
+["有点温暖又有点窒息，说不上来","B",1,0],
+["把药吃了，把感动也咽了","B",2,-1],
+["收下，然后开始盘算怎么还这个人情","C",1,0]]},
+
+{q:"四人 AA 吃完饭，你发现有人少转了 8 块。",o:[
+["群里甩出账单截图：“差 8 块，看看是谁的”","C",2,1],
+["私聊那个人：“是不是没看到差额呀”","C",1,1],
+["自己补上 8 块，不提","C",2,-1],
+["算了，8 块买个人情","B",1,0]]},
+{q:"帮朋友搬了一整天家，他说“改天请你吃大餐”，然后没了下文。",o:[
+["直接约：“就这周六吧，你说的那顿”","C",2,1],
+["在群里假装无意地提：“搬完家真的会饿死人”","A",1,0],
+["不提，但心里记下了这顿悬空的大餐","C",2,-1],
+["下次他再搬家，你说“那天我有事”","C",1,0]]},
+{q:"朋友用你的视频会员账号，先你一步看完了你排队三个月的剧。",o:[
+["“你居然看完了？？那剧透吧，就当补偿”","C",2,1],
+["默默改了密码","C",2,-1],
+["什么也不说，但心里排了个优先级","C",1,0],
+["挺好，账号总算物尽其用","B",1,0]]},
+{q:"拼单是你垫的钱，三天了群里没人提转账。",o:[
+["再等两天，看谁先提","C",2,-1],
+["群里发出收款码，配文“勿念，普通讨债”","C",2,1],
+["发一张明细截图，一个字也不说","C",1,0],
+["就当请了大家，图个清净","B",1,0]]},
+{q:"朋友说“这顿我请”，你转过去的钱他一直没点收。",o:[
+["再转一次，附言“你再不收我真急了”","C",1,1],
+["当面把手机递过去，让他点掉","C",2,1],
+["到时间自动退回，就当他请了","C",2,-1],
+["随他去，转账记录留着当纪念","A",1,0]]},
+{q:"互送生日礼物后，你发现对方送的，大概比你送的便宜不少。",o:[
+["无所谓，礼物看心意","B",1,0],
+["下次按这个新汇率送","C",2,1],
+["开始回忆：他上次是不是也这样","A",1,0],
+["心里咯噔一下，但什么也没说","C",2,-1]]},
+{q:"朋友借了 200 说下周还，第三周还没动静。",o:[
+["找个共同朋友旁敲侧击一下","A",1,0],
+["发消息：“先还一百也行，我最近手头紧”","C",2,1],
+["不催，但他下次再借就装穷","C",2,-1],
+["就当 200 块，把这件事买断","C",1,-1]]},
+{q:"你熬夜帮人做完了 PPT，对方一句“谢啦”就带过去了。",o:[
+["“谢啦可不行，请喝奶茶，中杯起步”","C",2,1],
+["发个“改到第三版了，快夸我”的表情包","B",1,0],
+["说“没事”，其实记了一笔","C",2,-1],
+["从此给帮忙设边界：晚十点后不回消息","B",1,0]]},
+{q:"合租的水电费，总有人说“下个月一起给”。",o:[
+["建一个共享表格，每月自动提醒","C",2,1],
+["先垫着，垫着垫着成了惯例","C",2,-1],
+["月底把缴费单贴到冰箱上，谁也不@","C",1,0],
+["搬走，去住一个不用算账的地方","D",1,-1]]},
+{q:"朋友把你“顺手帮的忙”，讲成“他专门为我腾了一下午”。",o:[
+["当场笑着更正：“没有没有，我就是顺手”","C",2,1],
+["无所谓，故事好看就行","B",1,0],
+["事后跟别人吐槽：“其实真的就是顺手”","A",1,0],
+["不纠正，但心里的账本对不上了","C",2,-1]]},
+
+{q:"团队里有人一直拖进度，你……",o:[
+["当场把问题摆到桌面上","D",2,1],
+["自己默默补完，心里记一笔","C",1,0],
+["申请换组，不再解释","D",2,-1],
+["找第三个人去传话","A",1,0]]},
+{q:"搭档突然改了方案，没有提前告诉你。",o:[
+["默默适配新方案，气场变冷","D",2,-1],
+["“改之前跟我说一声，我们同步一下”","D",2,1],
+["先看看新方案有没有道理再说","D",1,0],
+["也悄悄改我这边的，谁也别发现","C",1,0]]},
+{q:"健身（学习）搭子悄悄换了目标，不再约你。",o:[
+["直接问：“还练吗？不练我找别人了啊”","D",2,1],
+["也不问，默默一个人继续练","D",2,-1],
+["在朋友圈发自己的新计划，看他什么反应","A",1,0],
+["正好，一个人效率更高","B",1,0]]},
+{q:"你和搭档对“什么时候算做完”，标准完全不同。",o:[
+["按他的标准交，按自己的标准改","D",2,-1],
+["拉个会，把验收标准对齐","D",2,1],
+["白纸黑字写下分工和时间点","C",1,0],
+["各干各的，标准不同就不硬凑","D",1,0]]},
+{q:"你听到搭档评价你的“原话”，已经过了三个人的转述。",o:[
+["直接找搭档核对原话","D",2,1],
+["不问，但从此留了个心眼","D",2,-1],
+["先追查是谁传的话","A",1,0],
+["转述的话自动贬值七成，不作数","B",1,0]]},
+{q:"老搭档组了新局，没叫你。",o:[
+["直接问：“下回带我一个呗”","D",2,1],
+["假装不知道，转头组了自己的局","D",2,-1],
+["分析了没被叫的 N 种可能","A",1,0],
+["组局名单这种事，从不较真","B",1,0]]},
+{q:"合作项目结束了，对方说“以后有机会再合作”。",o:[
+["听听就好，礼貌点头","D",2,-1],
+["当真，并且后来真的约了他","D",2,1],
+["把“有机会”当客套话归档","A",1,0],
+["留好当时的合作记录，以备不时之需","C",1,0]]},
+{q:"搭档总在最后一刻改主意。",o:[
+["定个规矩：截止之后谁改谁请客","D",2,1],
+["提前做完自己那份，防他突袭","D",1,0],
+["陪着改、笑着改，内心逐渐麻木","D",2,-1],
+["等他改完再开工，磨刀不误砍柴工","D",1,0]]},
+{q:"你们的节奏，从“同频”变成了“你催我等”。",o:[
+["正式聊一次：“要么同步，要么各飞”","D",2,1],
+["不催了，把自己的速度降下来陪跑","D",2,-1],
+["改成异步协作，减少互相等待","D",1,0],
+["接受不同频，各自按各自节奏走","D",1,0]]},
+{q:"曾经天天联系的搭子，现在只剩工作对接。",o:[
+["周末主动发一条非工作消息破冰","D",2,1],
+["把他置顶，但不再先说话","D",2,-1],
+["等他先发，哪怕要等很久","A",1,0],
+["工作对接挺好的，专业不失礼","D",1,0]]}
+];
+
+/* ============================================================
+ * 结果库：4 条线 × 2 种站位 = 8 个结果
+ * ========================================================== */
+var LINES = {
+  A:{n:"旧账线", tag:"先开口", tag2:"先退场"},
+  B:{n:"错位线", tag:"先开口", tag2:"先退场"},
+  C:{n:"账目线", tag:"先开口", tag2:"先退场"},
+  D:{n:"搭档线", tag:"先开口", tag2:"先退场"}
+};
+
+var RESULTS = {
+A1:{t:"那条写了又删的消息", line:"A", open:true, side:"主动摊牌",
+persona:"你在节目里的同款段，是许飞×厉娜的那一折——隔着多年旧账和一句转述，你是想先把话摊开的那一个。\n现实里，你是微信里的「考古型选手」：聊天记录能翻到最底下，草稿箱里躺着一条编辑了三年零四个月的消息。",
+quote:"念念不忘，必有回响。",
+seg:"你们没有吵架。\n只是那句话绕了十五年，从别人嘴里，绕到了你们中间。\n后来你才明白：关系不是被事件打散的，\n是被“一直没说”，慢慢泡散的。",
+why:"你不是放不下，你只是不肯让一段关系，死得不明不白。\n你翻到过聊天记录的最底下，那句话停在很久以前的“在吗”。\n你打了又删，删了又打，\n按下发送的那一秒，心跳比告白还快。\n有人说你较真。\n其实你只是想给这段友情一个体面的说法——\n哪怕结局是散场，也要散得清清楚楚。",
+egg:"你的输入框上方，常年悬浮着一行打了一半的话。\n没关系，总有一天，你会把它说完的。",
+slogan:"旧账翻篇之前，先让我把话说完。"},
+A2:{t:"画地为牢，但我先不出去", line:"A", open:false, side:"克制观望",
+persona:"你在节目里的同款段，是许飞×厉娜那一折的另一头——账还在，话先咽了回去，你在等对方先迈半步。\n现实里，你是「置顶收藏家」：置顶了八个对话框，一个都没点开过；给旧友的备注，还停在当年的外号。",
+quote:"我画地为牢啊。",
+seg:"有些关系没有告别仪式。\n你们只是默契地不再提起，\n像合上了一场没看完的电影。\n门你没有锁，\n只是再也没有推开过。",
+why:"你的温柔，是往里收的。\n你记得对方的生日，记得那年的玩笑，\n唯独想不起来，该怎么开口。\n深夜你点开过他的头像，看了很久，然后原路退出去——\n像巡视一座已经搬空的老房子。\n你在等一个“他先来”的信号，\n好让和解显得毫不费力。\n这不是懦弱，这是你保护自己的方式。\n只是偶尔，也会委屈到自己。",
+egg:"你的朋友圈对他仅三天可见。\n但那三天里，没有一天你没想起他。",
+slogan:"关系可以翻篇，但我保留沉默的权利。"},
+B1:{t:"嘴上说“没事”的人", line:"B", open:true, side:"主动划界",
+persona:"你在节目里的同款段，是马天宇×张萌的那一折——好意和边界错了一个频道，你是终于把“介意”说出口的那一个。\n现实里，你是饭桌上的「客气拒绝大师」：被夹了不爱吃的菜，会说“我是真的不吃”，语气礼貌得像在替对方道歉。",
+quote:"我不要你觉得，我要我觉得。",
+seg:"你们的关系没有裂缝，\n只是频道错了一格。\n他把关心开到最大声，\n你把委屈调成了静音。\n两个人都没错——\n只是“为你好”和“我不舒服”，\n居然是同一件事。",
+why:"你是那种被照顾到快窒息，也只会说“谢谢”的人。\n但谢谢说多了，真的会噎住。\n你心里有杆秤，称的不是付出多少，\n是“有没有被当成一个大人”。\n你终于开口说“其实我有亿点介意”的那天，手都是抖的。\n说完之后你发现——\n天没有塌，关系没有崩。\n原来把话说开，比憋着，体面多了。",
+egg:"你的“随便”后面，\n永远跟着一句没发出去的：能不能别替我决定。",
+slogan:"好意我收下了，边界我自己守。"},
+B2:{t:"被照顾到想逃的人", line:"B", open:false, side:"克制后退",
+persona:"你在节目里的同款段，是马天宇×张萌那一折的另一面——被温柔包围着，却悄悄往后退的那一个。\n现实里，你是「60 秒语音拖延症」晚期患者：收到关心先存着，攒到“有心情”再听，通常是一周后，再补一句“哈哈哈，刚才才听到”。",
+quote:"退！退！退！",
+seg:"被温柔淹到快要没顶的时候，\n你做的第一件事不是喊救命，\n是把头轻轻抬起来，往岸边退。\n没有冲突，没有坏人，\n只有浓度过载的好意。",
+why:"你需要的从来不是更多的爱，\n是“刚刚好”的爱。\n对方越周全，你越觉得自己欠了什么、慢了什么。\n于是你把回复间隔从秒回，调成一天，\n再调成“看见了，晚点回”。\n不是不在乎，是在给自己续氧。\n别人说你冷淡。\n其实你只是，在一段关系里，\n也需要一个能喘气的角落。",
+egg:"你的“我没事”翻译过来是：\n有事，但我在自己处理，处理完自动就好了。",
+slogan:"先谢谢，再退后一步，深呼吸。"},
+C1:{t:"想把账算清楚的人", line:"C", open:true, side:"主动对账",
+persona:"你在节目里的同款段，是王子璇×文吉儿的那一折——一次被悄悄标了价的付出，两个版本的记忆，你是想对账的那一个。\n现实里，你是「转账备注狂魔」：“七月火锅AA-32”“打车+6.5”，一切人情往来全部留痕。",
+quote:"亲兄弟，明算账。",
+seg:"让你们走散的不是钱，\n是“同一段记忆，两个版本”。\n你记得你付出了什么，\n他记得他付出了什么。\n两份账单对不上，\n谁也没有说破。",
+why:"你对公平，有一种近乎过敏的在乎。\n可以多付出，但不能不被看见；\n可以不算钱，但不能装糊涂。\n少付八块你真的无所谓，\n“提都不提”才让你心里咯噔。\n所以你宁可当场尴尬三分钟，也要把账摊平——\n不是计较。\n是想确认：我们之间，付出是被记住的。\n确认完了，你才能安心，\n继续喜欢这个人。",
+egg:"群收款发出去没人点的时候，\n你表面淡定地刷别的，实际每三秒瞄一眼通知。",
+slogan:"钱可以不算，情必须记准。"},
+C2:{t:"退钱，也退场", line:"C", open:false, side:"克制止损",
+persona:"你在节目里的同款段，是王子璇×文吉儿那一折的另一面——你选择结清，然后安静离场。\n现实里，你是「体面退场大师」：红包原路退回，群悄悄退出，聊天记录截图存档——然后该吃饭吃饭，该睡觉睡觉。",
+quote:"一别两宽，各生欢喜。",
+seg:"那团搅在一起的毛线，你没有去解，\n你拿剪刀，剪断了。\n钱退回去，人也退出去，\n动作快得像早就练习过。\n只有你自己知道——\n夜里你会把那团线拿出来，重新绕一遍。",
+why:"你最怕的局面，叫“说不清”。\n一旦感觉一次付出，悄悄变成了对方的“应收账款”，\n你会瞬间失去全部安全感。\n朋友替你骂：“他就是自找的。”\n你只是摆摆手：算了，账清了就行。\n别人以为你潇洒。\n其实你只是算明白了一件事——\n解释的成本，比亏掉的钱，贵得多。",
+egg:"你说“不用还了”的时候特别轻。\n轻到只有你自己听得见后半句：\n这页翻过去，咱俩也翻过去。",
+slogan:"账两清，人不见，各自安好。"},
+D1:{t:"想跟你同步的人", line:"D", open:true, side:"主动对齐",
+persona:"你在节目里的同款段，是青稚×白小纯的那一折——从同频到错拍，你是还想把调子对回去的那一个。\n现实里，你是「人形同步闹钟」：搭档改了方案，必须第一时间知道；老群的群名三年没改，总觉得一改，就真的散了。",
+quote:"咱俩谁跟谁啊。",
+seg:"你们曾踩着同一个节拍走路：\n同一间训练室，同一份倒计时，同一种心跳。\n后来节拍渐渐错了位，\n一句评价传来传去，传成了定论。\n而你，还想把调子对回去。",
+why:"你的痛点从来不是“被落下”，\n是“不知道”。\n你可以接受别人走得快，\n但接受不了，没有一句“我先走啦”。\n你最讨厌从第三个人嘴里，\n听到关于自己的结论。\n所以你会主动约、主动问、主动对齐，\n哪怕尴尬到脚趾抠地。\n嘴上唱着“我们不一样”，\n心里想的还是：\n咱们，再同步一下好不好。",
+egg:"对方说“以后有机会再合作”，\n别人听听就算了，\n你真的会去翻日历找时间。",
+slogan:"可以不同速，但别不同频。"},
+D2:{t:"先下车的人", line:"D", open:false, side:"克制放手",
+persona:"你在节目里的同款段，是青稚×白小纯那一折的另一面——节奏不再一致的那天，你是安静提前下车的那一个。\n现实里，你从不多说：不吵不闹，默默调整自己的班次；下车前在车门口站了很久，但谁也没看出来。",
+quote:"每一次告别，最好用力一点。",
+seg:"关系像一趟曾经同频的列车。\n你们对“去哪儿”的答案，不再一致了。\n你没有吵架，\n只是在自己的那一站，\n安静地，提前下了车。",
+why:"你不是不念旧，\n是太清楚“强扭的同步”，比散伙更累。\n察觉对方悄悄换了轨道，你不追问，\n只默默调整自己的班次。\n别人夸你潇洒。\n其实下车前，你在车门口站了很久，\n你只是不想让任何人看到那几秒。\n把“再见”说得像“下次见”，\n是你留给这段关系的，最后一点体面。",
+egg:"退群前，你会把群名截一张图存着。\n不是留证据，是留念想。",
+slogan:"到站了，我在这站先下，祝你后程顺利。"}
+};
+
+/* ============================================================
+ * 计分：线 = 主维度总分最高；站位 = 站位总分正负
+ * 平局兜底：线同分 → 强命中多者胜 → 首次出现早者胜；
+ * 站位为零 → 取本命线的站位 → 仍为零 → 判“先开口”
+ * ========================================================== */
+function computeResult(){
+  var sc={A:0,B:0,C:0,D:0}, st={A:0,B:0,C:0,D:0}, strong={A:0,B:0,C:0,D:0}, first={A:Infinity,B:Infinity,C:Infinity,D:Infinity};
+  for(var i=0;i<TOTAL;i++){
+    var a=state.answers[i];
+    if(a===null||a===undefined) continue;
+    var o=QUESTIONS[i].o[a];
+    sc[o[1]]+=o[2];
+    st[o[1]]+=o[3];
+    if(o[2]===2) strong[o[1]]++;
+    if(i<first[o[1]]) first[o[1]]=i;
+  }
+  var line='A';
+  ['A','B','C','D'].forEach(function(l){
+    if(sc[l]>sc[line] ||
+      (sc[l]===sc[line] && strong[l]>strong[line]) ||
+      (sc[l]===sc[line] && strong[l]===strong[line] && first[l]<first[line])){
+      line=l;
+    }
+  });
+  var total=st.A+st.B+st.C+st.D;
+  var open = total>0 ? true : total<0 ? false : (st[line]>0 ? true : st[line]<0 ? false : true);
+  return line + (open?'1':'2');
+}
+
+/* ============================================================
+ * 状态与持久化（localStorage，可选）
+ * ========================================================== */
+var state={idx:0, answers:new Array(TOTAL).fill(null), resultId:null, done:false};
+
+function persist(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify({a:state.answers,i:state.idx,done:state.done,r:state.resultId}));
+  }catch(e){}
+}
+function restore(){
+  try{
+    var s=JSON.parse(localStorage.getItem(KEY));
+    if(s && Array.isArray(s.a) && s.a.some(function(x){return x!==null && x!==undefined})){
+      state.answers=s.a.map(function(x){return (x===null||x===undefined)?null:x;});
+      state.idx=Math.min(Math.max(s.i||0,0),TOTAL-1);
+      state.done=!!s.done; state.resultId=s.r||null;
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+function clearStore(){
+  try{ localStorage.removeItem(KEY); }catch(e){}
+}
+
+/* ============================================================
+ * 渲染与交互
+ * ========================================================== */
+var $=function(id){return document.getElementById(id)};
+var screens={start:$('screen-start'),quiz:$('screen-quiz'),result:$('screen-result')};
+
+function showScreen(name){
+  Object.keys(screens).forEach(function(k){screens[k].classList.toggle('on',k===name);});
+  window.scrollTo({top:0,behavior:'auto'});
+}
+
+/* —— 轻提示 —— */
+var toastTimer=null;
+function toast(msg){
+  var t=$('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},2200);
+}
+
+/* —— 渲染当前题目 —— */
+function renderQuestion(dir){
+  var i=state.idx, Q=QUESTIONS[i];
+  $('q-text').textContent=Q.q;
+  $('q-now').textContent=i+1;
+  $('bar-fill').style.width=((i+1)/TOTAL*100)+'%';
+
+  var box=$('opts');
+  box.innerHTML='';
+  var letters=['A','B','C','D'];
+  Q.o.forEach(function(opt,oi){
+    var b=document.createElement('button');
+    b.type='button'; b.className='opt';
+    b.setAttribute('aria-label','选项'+letters[oi]);
+    b.innerHTML='<span class="opt-letter">'+letters[oi]+'</span><span class="opt-text"></span><span class="opt-tick">✓</span>';
+    b.querySelector('.opt-text').textContent=opt[0];
+    if(state.answers[i]===oi) b.classList.add('sel');
+    b.addEventListener('click',function(ev){selectOption(i,oi,b,ev);});
+    box.appendChild(b);
+  });
+
+  /* 切题动效（方向感知） */
+  var card=$('qcard');
+  card.classList.remove('anim-next','anim-prev');
+  void card.offsetWidth; /* 重启动画 */
+  card.classList.add(dir>=0?'anim-next':'anim-prev');
+
+  updateNav();
+}
+
+/* —— 选中选项：记录 + 高亮 + 涟漪 —— */
+function selectOption(qi,oi,btn,ev){
+  state.answers[qi]=oi;
+  var box=$('opts');
+  Array.prototype.forEach.call(box.children,function(el){el.classList.remove('sel');});
+  btn.classList.add('sel');
+  if(ev){
+    var r=btn.getBoundingClientRect();
+    var rip=document.createElement('span');
+    rip.className='ripple';
+    rip.style.left=(ev.clientX-r.left-12)+'px';
+    rip.style.top=(ev.clientY-r.top-12)+'px';
+    btn.appendChild(rip);
+    setTimeout(function(){rip.remove();},600);
+  }
+  persist();
+  updateNav();
+}
+
+/* —— 底部按钮状态 —— */
+function updateNav(){
+  var i=state.idx, answered=state.answers[i]!==null;
+  $('btn-prev').disabled=(i===0);
+  var next=$('btn-next');
+  next.disabled=!answered;
+  next.textContent=(i===TOTAL-1)?'看看结果':'下一题';
+  next.classList.toggle('ready',answered && i<TOTAL-1);
+}
+
+function goPrev(){
+  if(state.idx>0){state.idx--;persist();renderQuestion(-1);window.scrollTo({top:0,behavior:'smooth'});}
+}
+function tryNext(){
+  if($('btn-next').disabled) return;
+  if(state.idx<TOTAL-1){
+    state.idx++;persist();renderQuestion(1);window.scrollTo({top:0,behavior:'smooth'});
+  }else{
+    finish();
+  }
+}
+
+/* —— 出结果 —— */
+/* 全屏场景：journey = 启动/答题页的旅途风景；其余为各结果专属意境 */
+var SCENES={
+journey:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scJ" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3EBDD"/><stop offset=".45" stop-color="#DCE9F0"/><stop offset="1" stop-color="#FBE3CB"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scJ)"/>'+
+ '<circle cx="590" cy="250" r="80" fill="#FFE3B8" class="art-glow"/><circle cx="590" cy="250" r="140" fill="#FFD9A6" opacity=".25"/>'+
+ '<ellipse cx="160" cy="330" rx="110" ry="20" fill="#fff" opacity=".55" class="art-float"/><ellipse cx="430" cy="180" rx="90" ry="16" fill="#fff" opacity=".45" class="art-float" style="animation-delay:-3s"/>'+
+ '<path d="M0 1010 L170 860 L300 980 L440 830 L600 990 L750 900 L750 1334 L0 1334Z" fill="#B9CEDA" opacity=".5"/>'+
+ '<path d="M0 1090 L200 980 L380 1080 L560 970 L750 1070 L750 1334 L0 1334Z" fill="#9FBBC9" opacity=".5"/>'+
+ '<rect x="0" y="1150" width="750" height="184" fill="#E9DFD2" opacity=".75"/>'+
+ '<path d="M300 1334 L368 1150 L382 1150 L470 1334Z" fill="#F6EFE5" opacity=".95"/>'+
+ '<path d="M372 1334 L375 1150" stroke="#fff" stroke-width="7" stroke-dasharray="18 26" class="art-wave-rev"/></svg>',
+A1:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scA1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27344A"/><stop offset=".55" stop-color="#4A5B78"/><stop offset="1" stop-color="#7A6A86"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scA1)"/>'+
+ '<g fill="#fff"><circle cx="90" cy="140" r="2.5" class="art-blink"/><circle cx="210" cy="60" r="2"/><circle cx="340" cy="200" r="2.5" class="art-blink" style="animation-delay:.7s"/><circle cx="470" cy="90" r="2"/><circle cx="700" cy="400" r="2.5" class="art-blink" style="animation-delay:.3s"/><circle cx="60" cy="420" r="2" class="art-blink" style="animation-delay:1s"/><circle cx="180" cy="330" r="1.8"/><circle cx="520" cy="330" r="2" class="art-blink" style="animation-delay:.5s"/><circle cx="690" cy="640" r="2"/><circle cx="40" cy="720" r="2" class="art-blink" style="animation-delay:.9s"/></g>'+
+ '<circle cx="590" cy="230" r="56" fill="#F7F0DC"/><circle cx="616" cy="212" r="48" fill="#3B4A66"/>'+
+ '<rect x="-40" y="440" width="230" height="60" rx="26" fill="#fff" opacity=".05" class="art-drift"/><rect x="520" y="640" width="260" height="56" rx="26" fill="#fff" opacity=".05" class="art-drift" style="animation-delay:-3s"/>'+
+ '<g fill="#1F2A3D" opacity=".55"><rect x="0" y="1130" width="90" height="204"/><rect x="100" y="1080" width="70" height="254"/><rect x="180" y="1160" width="110" height="174"/><rect x="300" y="1050" width="80" height="284"/><rect x="390" y="1120" width="120" height="214"/><rect x="520" y="1070" width="70" height="264"/><rect x="600" y="1150" width="150" height="184"/></g>'+
+ '<g fill="#F6C089"><rect x="118" y="1100" width="10" height="14" class="art-blink"/><rect x="320" y="1080" width="10" height="14" class="art-blink" style="animation-delay:.5s"/><rect x="410" y="1160" width="10" height="14" class="art-blink" style="animation-delay:.9s"/><rect x="536" y="1100" width="10" height="14" class="art-blink" style="animation-delay:.3s"/><rect x="630" y="1180" width="10" height="14" opacity=".7"/></g></svg>',
+A2:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scA2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ECEEEC"/><stop offset=".55" stop-color="#E7DFD4"/><stop offset="1" stop-color="#F4DCC0"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scA2)"/>'+
+ '<g fill="#fff" opacity=".22"><polygon points="400,0 500,0 300,1334 200,1334"/><polygon points="600,0 660,0 440,1334 380,1334"/></g>'+
+ '<rect x="70" y="720" width="150" height="614" rx="8" fill="#5B6B75" opacity=".1"/><rect x="205" y="720" width="10" height="614" rx="4" fill="#E67E44" opacity=".28" class="art-drift"/>'+
+ '<circle cx="520" cy="900" r="5" fill="#fff" opacity=".8" class="art-float"/><circle cx="600" cy="1060" r="4" fill="#fff" opacity=".7" class="art-float" style="animation-delay:-2s"/><circle cx="330" cy="1180" r="3" fill="#fff" opacity=".7" class="art-float" style="animation-delay:-4s"/></svg>',
+B1:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF7EC"/><stop offset=".55" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFE0C8"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scB1)"/>'+
+ '<circle cx="375" cy="170" r="260" fill="#fff" opacity=".3"/><circle cx="375" cy="110" r="70" fill="#FFF4E0" class="art-glow"/>'+
+ '<path d="M580 380 C 660 560, 520 760, 620 980" stroke="#E67E44" stroke-width="3" stroke-dasharray="4 14" stroke-linecap="round" fill="none" opacity=".4" class="art-wave"/>'+
+ '<rect x="0" y="1130" width="750" height="204" fill="#F6D9BC" opacity=".45"/><ellipse cx="375" cy="1140" rx="300" ry="26" fill="#fff" opacity=".55"/><circle cx="250" cy="1136" r="34" fill="#fff" opacity=".7"/><circle cx="470" cy="1136" r="26" fill="#fff" opacity=".6"/></svg>',
+B2:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scB2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDCAE"/><stop offset=".42" stop-color="#FFB48E"/><stop offset=".68" stop-color="#F79BA2"/><stop offset=".86" stop-color="#C9A7D8"/><stop offset="1" stop-color="#A88FC4"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scB2)"/>'+
+ '<circle cx="300" cy="900" r="110" fill="#FFF0CC" class="art-glow"/><circle cx="300" cy="900" r="200" fill="#FFE3B8" opacity=".3"/>'+
+ '<rect x="0" y="962" width="750" height="372" fill="#C79BB8" opacity=".25"/><path d="M0 963 H750" stroke="#fff" stroke-width="2" opacity=".6"/>'+
+ '<path d="M250 984 H350 M265 1010 H335 M282 1038 H318" stroke="#FFF3D6" stroke-width="4" stroke-linecap="round" opacity=".6"/>'+
+ '<g stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".35" class="art-wave"><path d="M80 1070 H180"/><path d="M520 1110 H640"/><path d="M200 1210 H300"/><path d="M420 1260 H520"/></g>'+
+ '<path d="M480 160 q12 -12 24 0 q12 -12 24 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".9" class="art-drift"/>'+
+ '<path d="M560 230 q9 -9 18 0 q9 -9 18 0" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7" class="art-drift" style="animation-delay:-2s"/>'+
+ '<path d="M40 320 C 160 280, 260 360, 420 300" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 12" stroke-linecap="round" opacity=".55" class="art-wave"/>'+
+ '<ellipse cx="170" cy="210" rx="110" ry="18" fill="#fff" opacity=".4" class="art-float"/><ellipse cx="620" cy="440" rx="90" ry="15" fill="#fff" opacity=".35" class="art-float" style="animation-delay:-3s"/></svg>',
+C1:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scC1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFAE6"/><stop offset=".55" stop-color="#FFF2CF"/><stop offset="1" stop-color="#F8E6BC"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scC1)"/>'+
+ '<g stroke="#D9B77A" stroke-width="1" opacity=".25"><line x1="0" y1="110" x2="750" y2="110"/><line x1="0" y1="220" x2="750" y2="220"/><line x1="0" y1="330" x2="750" y2="330"/><line x1="0" y1="440" x2="750" y2="440"/><line x1="0" y1="550" x2="750" y2="550"/><line x1="0" y1="660" x2="750" y2="660"/><line x1="0" y1="770" x2="750" y2="770"/><line x1="0" y1="880" x2="750" y2="880"/><line x1="0" y1="990" x2="750" y2="990"/><line x1="0" y1="1100" x2="750" y2="1100"/><line x1="0" y1="1210" x2="750" y2="1210"/><line x1="110" y1="0" x2="110" y2="1334"/><line x1="220" y1="0" x2="220" y2="1334"/><line x1="330" y1="0" x2="330" y2="1334"/><line x1="440" y1="0" x2="440" y2="1334"/><line x1="550" y1="0" x2="550" y2="1334"/><line x1="660" y1="0" x2="660" y2="1334"/></g>'+
+ '<line x1="70" y1="0" x2="70" y2="1334" stroke="#E67E44" stroke-width="2" opacity=".35"/>'+
+ '<path d="M540 160 l34 34 l66 -80" stroke="#E67E44" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".2" class="art-float"/>'+
+ '<circle cx="150" cy="1180" r="26" fill="#F0C96A" opacity=".45" class="art-float"/><circle cx="200" cy="1190" r="26" fill="#F0C96A" opacity=".3"/><circle cx="600" cy="1230" r="22" fill="#F0C96A" opacity=".35" class="art-float" style="animation-delay:-3s"/></svg>',
+C2:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scC2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEF5F9"/><stop offset=".55" stop-color="#DCEAF1"/><stop offset="1" stop-color="#C9DCE7"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scC2)"/>'+
+ '<circle cx="600" cy="230" r="70" fill="#fff" opacity=".55" class="art-glow"/><circle cx="600" cy="230" r="130" fill="#fff" opacity=".2"/>'+
+ '<g stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".4"><line x1="120" y1="200" x2="96" y2="300"/><line x1="300" y1="120" x2="276" y2="220"/><line x1="480" y1="420" x2="456" y2="520"/><line x1="680" y1="520" x2="656" y2="620"/><line x1="200" y1="640" x2="176" y2="740"/></g>'+
+ '<path d="M-10 880 C 160 820, 300 960, 400 900" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7" class="art-drift"/>'+
+ '<path d="M440 892 C 540 860, 640 960, 780 900" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7" class="art-drift" style="animation-delay:-4s"/>'+
+ '<circle cx="420" cy="896" r="6" fill="#E67E44" opacity=".7" class="art-blink"/>'+
+ '<ellipse cx="375" cy="1240" rx="260" ry="22" fill="#fff" opacity=".35"/><circle cx="200" cy="1120" r="12" fill="#fff" opacity=".6" class="art-float"/><circle cx="560" cy="1160" r="9" fill="#fff" opacity=".55" class="art-float" style="animation-delay:-2s"/></svg>',
+D1:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scD1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0F7FC"/><stop offset=".55" stop-color="#D9EAF5"/><stop offset="1" stop-color="#C3DBEA"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scD1)"/>'+
+ '<g fill="none" stroke="#6E8FA1" stroke-width="2.5" opacity=".3" class="art-float"><circle cx="110" cy="260" r="40"/><circle cx="110" cy="260" r="90"/><circle cx="110" cy="260" r="140"/></g>'+
+ '<g fill="none" stroke="#F09A5A" stroke-width="2.5" opacity=".38" class="art-float" style="animation-delay:-3s"><circle cx="640" cy="480" r="40"/><circle cx="640" cy="480" r="90"/><circle cx="640" cy="480" r="140"/></g>'+
+ '<circle cx="110" cy="260" r="14" fill="#6E8FA1" opacity=".5"/><circle cx="640" cy="480" r="14" fill="#F09A5A" opacity=".55"/>'+
+ '<path d="M0 1150 C 90 1150, 90 1090, 180 1090 S 270 1150, 360 1150" fill="none" stroke="#6E8FA1" stroke-width="4" stroke-linecap="round" opacity=".5" class="art-wave"/>'+
+ '<path d="M0 1090 C 90 1090, 90 1150, 180 1150 S 270 1090, 360 1090" fill="none" stroke="#F09A5A" stroke-width="4" stroke-linecap="round" opacity=".55" class="art-wave" style="animation-delay:-1s"/>'+
+ '<path d="M360 1120 H750" stroke="#33414B" stroke-width="4" stroke-linecap="round" opacity=".35"/><circle cx="360" cy="1120" r="12" fill="#fff" stroke="#F09A5A" stroke-width="4" class="art-glow"/></svg>',
+D2:'<svg viewBox="0 0 750 1334" preserveAspectRatio="xMidYMid slice">'+
+ '<defs><linearGradient id="scD2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBD8AE"/><stop offset=".5" stop-color="#F7AE86"/><stop offset=".8" stop-color="#C99AA6"/><stop offset="1" stop-color="#8E6E85"/></linearGradient></defs>'+
+ '<rect width="750" height="1334" fill="url(#scD2)"/>'+
+ '<circle cx="180" cy="420" r="80" fill="#FFF0CC" class="art-glow"/><circle cx="180" cy="420" r="150" fill="#FFE3B8" opacity=".25"/>'+
+ '<path d="M0 900 L180 760 L330 900 Z" fill="#8E5F5E" opacity=".28"/><path d="M250 900 L470 720 L700 900 Z" fill="#8E5F5E" opacity=".24"/><path d="M560 900 L750 790 L750 900Z" fill="#8E5F5E" opacity=".24"/>'+
+ '<rect x="0" y="900" width="750" height="434" fill="#6E4A58" opacity=".18"/>'+
+ '<path d="M290 1334 L370 960 L380 960 L470 1334Z" fill="#F3E6DA" opacity=".3"/>'+
+ '<path d="M300 1334 L370 960" stroke="#fff" stroke-width="3" opacity=".6"/><path d="M460 1334 L380 960" stroke="#fff" stroke-width="3" opacity=".6"/>'+
+ '<g stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".6" class="art-wave-rev"><line x1="322" y1="1300" x2="438" y2="1300"/><line x1="336" y1="1240" x2="424" y2="1240"/><line x1="346" y1="1190" x2="414" y2="1190"/><line x1="354" y1="1148" x2="406" y2="1148"/><line x1="360" y1="1110" x2="400" y2="1110"/></g>'+
+ '<rect x="90" y="700" width="160" height="58" rx="8" fill="#fff" opacity=".6"/><rect x="164" y="758" width="8" height="576" fill="#fff" opacity=".6"/></svg>'
+};
+
+/* 各结果的意境插画（纯内联 SVG，静态字符串，叠在 hero 卡片内） */
+var ART={
+A1:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<circle cx="520" cy="46" r="2.5" fill="#fff" opacity=".8" class="art-blink"/>'+
+ '<circle cx="470" cy="90" r="1.8" fill="#fff" opacity=".6"/>'+
+ '<circle cx="80" cy="40" r="2" fill="#fff" opacity=".7" class="art-blink" style="animation-delay:.6s"/>'+
+ '<rect x="-30" y="44" width="170" height="46" rx="20" fill="#fff" opacity=".10" class="art-drift"/>'+
+ '<rect x="440" y="84" width="170" height="40" rx="18" fill="#fff" opacity=".08" class="art-drift" style="animation-delay:-3s"/>'+
+ '<rect x="30" y="226" width="210" height="46" rx="20" fill="#fff" opacity=".07" class="art-drift" style="animation-delay:-5s"/>'+
+ '<rect x="250" y="228" width="3" height="24" rx="1.5" fill="#F6C089" class="art-blink"/>'+
+ '<rect x="330" y="150" width="120" height="3" rx="1.5" fill="#fff" opacity=".14"/>'+
+ '<rect x="140" y="118" width="70" height="3" rx="1.5" fill="#fff" opacity=".14"/></svg>',
+A2:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<g fill="#fff" opacity=".22"><polygon points="380,0 470,0 300,320 210,320"/><polygon points="500,0 560,0 390,320 330,320"/><polygon points="580,0 620,0 450,320 410,320"/></g>'+
+ '<g fill="none" stroke="#fff" stroke-width="2" opacity=".55"><rect x="40" y="56" width="112" height="208" rx="6"/><line x1="96" y1="56" x2="96" y2="264"/><line x1="40" y1="160" x2="152" y2="160"/></g>'+
+ '<rect x="176" y="88" width="8" height="176" rx="3" fill="#E67E44" opacity=".35" class="art-drift"/>'+
+ '<circle cx="500" cy="250" r="3" fill="#E67E44" opacity=".5" class="art-float"/></svg>',
+B1:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<circle cx="130" cy="170" r="110" fill="#fff" opacity=".38"/>'+
+ '<circle cx="130" cy="170" r="110" fill="none" stroke="#E67E44" stroke-width="2" stroke-dasharray="6 10" opacity=".55" class="art-spin"/>'+
+ '<path d="M300 30 C 360 110, 250 210, 330 310" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" opacity=".85"/>'+
+ '<circle cx="480" cy="80" r="60" fill="#F09A5A" opacity=".16" class="art-float"/>'+
+ '<circle cx="450" cy="240" r="26" fill="#fff" opacity=".45"/></svg>',
+B2:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<circle cx="110" cy="262" r="62" fill="#FFEFC9" class="art-glow"/>'+
+ '<circle cx="110" cy="262" r="100" fill="#FFE0B8" opacity=".28"/>'+
+ '<rect x="0" y="264" width="600" height="70" fill="#B98DA8" opacity=".2"/>'+
+ '<path d="M0 265 H600" stroke="#fff" stroke-width="2" opacity=".55"/>'+
+ '<path d="M390 64 q10 -10 20 0 q10 -10 20 0" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".9" class="art-drift"/>'+
+ '<path d="M460 100 q8 -8 16 0 q8 -8 16 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7" class="art-drift" style="animation-delay:-2s"/>'+
+ '<path d="M300 170 C 380 150, 460 200, 600 160" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 10" stroke-linecap="round" opacity=".6" class="art-wave"/>'+
+ '<ellipse cx="200" cy="70" rx="80" ry="14" fill="#fff" opacity=".35" class="art-float"/>'+
+ '<ellipse cx="520" cy="46" rx="90" ry="16" fill="#fff" opacity=".3" class="art-float" style="animation-delay:-3s"/></svg>',
+C1:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<g stroke="#D9B77A" stroke-width="1" opacity=".35"><line x1="0" y1="60" x2="600" y2="60"/><line x1="0" y1="120" x2="600" y2="120"/><line x1="0" y1="180" x2="600" y2="180"/><line x1="0" y1="240" x2="600" y2="240"/><line x1="120" y1="0" x2="120" y2="320"/><line x1="480" y1="0" x2="480" y2="320"/></g>'+
+ '<line x1="60" y1="0" x2="60" y2="320" stroke="#E67E44" stroke-width="2" opacity=".35"/>'+
+ '<path d="M500 66 l12 12 l22 -26" fill="none" stroke="#E67E44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".65" class="art-float"/>'+
+ '<circle cx="92" cy="212" r="12" fill="#F0C96A" opacity=".55" class="art-float" style="animation-delay:-2s"/><circle cx="114" cy="216" r="12" fill="#F0C96A" opacity=".4"/>'+
+ '<rect x="430" y="214" width="110" height="6" rx="3" fill="#D9B77A" opacity=".4"/><rect x="430" y="230" width="80" height="6" rx="3" fill="#D9B77A" opacity=".3"/></svg>',
+C2:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<path d="M-10 90 C 120 40, 220 150, 300 120" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".75" class="art-drift"/>'+
+ '<path d="M336 112 C 420 90, 500 180, 620 130" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".75" class="art-drift" style="animation-delay:-4s"/>'+
+ '<circle cx="318" cy="118" r="5" fill="#E67E44" opacity=".7" class="art-blink"/>'+
+ '<circle cx="120" cy="232" r="10" fill="#fff" opacity=".5" class="art-float"/><circle cx="150" cy="252" r="6" fill="#fff" opacity=".4"/>'+
+ '<circle cx="480" cy="222" r="8" fill="#fff" opacity=".45" class="art-float" style="animation-delay:-3s"/>'+
+ '<path d="M400 56 q10 14 0 28" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/></svg>',
+D1:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<path d="M0 288 C 50 288, 50 252, 100 252 S 150 288, 200 288 S 250 252, 300 252" fill="none" stroke="#6E8FA1" stroke-width="3" stroke-linecap="round" opacity=".55" class="art-wave"/>'+
+ '<path d="M0 252 C 50 252, 50 288, 100 288 S 150 252, 200 252 S 250 288, 300 288" fill="none" stroke="#F09A5A" stroke-width="3" stroke-linecap="round" opacity=".6" class="art-wave" style="animation-delay:-1s"/>'+
+ '<path d="M300 270 H600" stroke="#33414B" stroke-width="3.5" stroke-linecap="round" opacity=".45"/>'+
+ '<circle cx="300" cy="270" r="8" fill="#fff" stroke="#F09A5A" stroke-width="3" class="art-glow"/>'+
+ '<g stroke="#33414B" stroke-width="3" stroke-linecap="round" opacity=".3"><line x1="90" y1="60" x2="90" y2="100"/><line x1="120" y1="50" x2="120" y2="110"/><line x1="500" y1="50" x2="500" y2="90"/><line x1="530" y1="62" x2="530" y2="104"/></g>'+
+ '<circle cx="420" cy="110" r="4" fill="#F09A5A" opacity=".6" class="art-float"/></svg>',
+D2:'<svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">'+
+ '<circle cx="470" cy="118" r="46" fill="#FFEFC9" class="art-glow"/>'+
+ '<path d="M0 200 L120 130 L220 200 Z" fill="#8E5F5E" opacity=".3"/><path d="M160 200 L300 110 L440 200 Z" fill="#8E5F5E" opacity=".25"/><path d="M380 200 L500 140 L620 200 Z" fill="#8E5F5E" opacity=".25"/>'+
+ '<rect x="0" y="200" width="600" height="120" fill="#6E4A58" opacity=".16"/>'+
+ '<line x1="236" y1="320" x2="286" y2="200" stroke="#fff" stroke-width="2" opacity=".6"/><line x1="364" y1="320" x2="314" y2="200" stroke="#fff" stroke-width="2" opacity=".6"/>'+
+ '<g stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7" class="art-wave"><line x1="268" y1="300" x2="332" y2="300"/><line x1="278" y1="268" x2="322" y2="268"/><line x1="286" y1="242" x2="314" y2="242"/></g>'+
+ '<rect x="56" y="56" width="72" height="26" rx="6" fill="#fff" opacity=".6"/><line x1="92" y1="82" x2="92" y2="200" stroke="#fff" stroke-width="3" opacity=".6"/></svg>'
+};
+
+/* 主题切换：全屏场景 + hero 配色/插画 + 整页光晕（无 id 时回到旅途场景） */
+function setTheme(id){
+  var hero=$('hero');
+  hero.className='hero'+(id?' t-'+id:'');
+  $('hero-art').innerHTML=id?ART[id]:'';
+  document.body.className=id?('t-'+id):'';
+  $('scene').innerHTML=SCENES[id||'journey'];
+}
+
+function finish(){
+  state.resultId=computeResult();
+  state.done=true;
+  persist();
+  renderResult(state.resultId);
+  showScreen('result');
+}
+function renderResult(id){
+  var r=RESULTS[id];
+  setTheme(id);
+  $('r-line').textContent=LINES[r.line].n;
+  $('r-stance').textContent=r.open?'先开口':'先退场';
+  $('r-title').textContent='《'+r.t+'》';
+  $('r-quote').textContent='「'+r.quote+'」';
+  $('r-persona').textContent=r.persona;
+  $('r-slogan').textContent='“'+r.slogan+'”';
+  $('r-side').innerHTML='你在这段里，通常是<b>「'+r.side+'」</b>的那一方';
+  $('r-seg').textContent=r.seg;
+  $('r-why').textContent=r.why;
+  $('r-egg').textContent=r.egg;
+  var hero=$('hero');
+  hero.classList.remove('anim');void hero.offsetWidth;hero.classList.add('anim');
+}
+
+/* —— 复制分享文案 —— */
+function copyShare(){
+  var r=RESULTS[state.resultId];
+  var txt='《'+r.t+'》\n嘴替金句：'+r.quote+'\n'+r.slogan+'\n——来自「后会友期 · 矛盾形状小测试」\n你也来测测：你最像哪一段散场的友情？';
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){toast('文案已复制，去发给朋友吧');})
+      .catch(function(){fallbackCopy(txt);});
+  }else{
+    fallbackCopy(txt);
+  }
+}
+function fallbackCopy(txt){
+  var ta=document.createElement('textarea');
+  ta.value=txt;
+  ta.style.cssText='position:fixed;left:-999px;top:0';
+  document.body.appendChild(ta);
+  ta.select();
+  var ok=false;
+  try{ok=document.execCommand('copy');}catch(e){}
+  ta.remove();
+  toast(ok?'文案已复制，去发给朋友吧':'复制失败，长按结果页截图分享也可以');
+}
+
+/* —— 重测：彻底清零 —— */
+function restart(){
+  state.idx=0;
+  state.answers=new Array(TOTAL).fill(null);
+  state.resultId=null;
+  state.done=false;
+  clearStore();
+  setTheme(null);
+  showScreen('start');
+  renderLastResult();
+}
+
+/* —— 启动页显示上次结果 —— */
+function renderLastResult(){
+  var box=$('last-result');
+  try{
+    var s=JSON.parse(localStorage.getItem(KEY));
+    if(s && s.done && s.r && RESULTS[s.r]){
+      box.hidden=false;
+      box.innerHTML='';
+      var span=document.createElement('span');
+      span.innerHTML='上次测得：<b>《'+RESULTS[s.r].t+'》</b>';
+      var btn=document.createElement('button');
+      btn.type='button';btn.textContent='查看';
+      btn.addEventListener('click',function(){
+        state.resultId=s.r;renderResult(s.r);showScreen('result');
+      });
+      box.appendChild(span);box.appendChild(btn);
+      return;
+    }
+  }catch(e){}
+  box.hidden=true;
+}
+
+/* —— 事件绑定 —— */
+$('btn-start').addEventListener('click',function(){
+  state.idx=0;
+  if(state.answers.every(function(x){return x===null})){
+    state.answers=new Array(TOTAL).fill(null);
+  }
+  setTheme(null);
+  persist();
+  renderQuestion(1);
+  showScreen('quiz');
+});
+$('btn-prev').addEventListener('click',goPrev);
+$('btn-next').addEventListener('click',tryNext);
+$('btn-copy').addEventListener('click',copyShare);
+$('btn-retry').addEventListener('click',restart);
+
+/* 手机上下滑动切题 */
+var touchY=null,touchX=null;
+screens.quiz.addEventListener('touchstart',function(e){
+  touchY=e.touches[0].clientY;touchX=e.touches[0].clientX;
+},{passive:true});
+screens.quiz.addEventListener('touchend',function(e){
+  if(touchY===null)return;
+  var dy=e.changedTouches[0].clientY-touchY;
+  var dx=e.changedTouches[0].clientX-touchX;
+  touchY=touchX=null;
+  if(Math.abs(dy)>70 && Math.abs(dy)>Math.abs(dx)*1.4){
+    if(dy<0)tryNext(); else goPrev();
+  }
+},{passive:true});
+
+/* 桌面端键盘左右键 */
+document.addEventListener('keydown',function(e){
+  if(!screens.quiz.classList.contains('on'))return;
+  if(e.key==='ArrowRight')tryNext();
+  if(e.key==='ArrowLeft')goPrev();
+});
+
+/* —— 星点粒子（纯装饰，缓慢上浮）—— */
+(function sparks(){
+  var box=$('bg-fx');
+  for(var i=0;i<12;i++){
+    var s=document.createElement('span');
+    s.className='spark'+(Math.random()<.4?' blue':'');
+    var size=5+Math.random()*7;
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(9+Math.random()*9)+'s';
+    s.style.animationDelay=(-Math.random()*18)+'s';
+    box.appendChild(s);
+  }
+})();
+
+/* —— 初始化：尝试恢复进度 —— */
+(function init(){
+  setTheme(null);
+  if(restore()){
+    if(state.done && state.resultId){
+      renderLastResult();
+      showScreen('start');
+    }else{
+      renderQuestion(state.idx>=0?1:-1);
+      showScreen('quiz');
+      toast('已恢复上次的进度，继续吧');
+    }
+  }else{
+    renderLastResult();
+    showScreen('start');
+  }
+})();
+</script>
+</body>
+</html>
